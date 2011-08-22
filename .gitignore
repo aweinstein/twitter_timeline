@@ -3,5 +3,5 @@
 *.sqlite
 *.log
 access_token.py
-authdata.py
+config.py
 test_tweepy.py

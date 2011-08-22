@@ -1,9 +1,9 @@
 import logging
 import sqlite3
 
-from authdata import *
+from config import *
 
-logging.basicConfig(filename='./update_timeline.log',
+logging.basicConfig(filename=log_file,
                     level=logging.INFO,
                     format='%(asctime)s %(message)s')
 
@@ -83,7 +83,7 @@ def insert_timeline(tl, file_name):
     
 if __name__ == '__main__':
 
-    db_name = './tweets.sqlite'
+    #db_name = './tweets.sqlite'
     #create_db(db_name)
     api = auth()
     timeline = get_timeline(api)
