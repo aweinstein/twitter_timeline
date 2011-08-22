@@ -1,0 +1,7 @@
+*.pyc
+*.txt
+*.sqlite
+*.log
+access_token.py
+authdata.py
+test_tweepy.py
