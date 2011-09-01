@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import logging
 import sqlite3
 
@@ -6,6 +8,10 @@ from config import *
 logging.basicConfig(filename=log_file,
                     level=logging.INFO,
                     format='%(asctime)s %(message)s')
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+logging.getLogger('').addHandler(console)
+
 
 import tweepy
 
