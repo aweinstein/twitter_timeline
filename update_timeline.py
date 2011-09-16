@@ -2,6 +2,7 @@
 
 import logging
 import sqlite3
+import sys
 
 from config import *
 
@@ -30,17 +31,20 @@ def get_timeline(api, limit=None):
     else:
         cursor = tweepy.Cursor(api.home_timeline).items()
     logging.info('Getting the timeline')
-    for t in cursor:
-        try:
-            tl.append((t.id,
-                       t.user.screen_name,
-                       repr(t.coordinates),
-                       t.created_at,
-                       t.text))
-        except AttributeError:
-            k += 1
-    logging.info('%d itemes placed in the timeline', len(tl))
-    
+    try:
+        for t in cursor:
+            try:
+                tl.append((t.id,
+                           t.user.screen_name,
+                           repr(t.coordinates),
+                           t.created_at,
+                           t.text))
+            except AttributeError:
+                k += 1
+        logging.info('%d itemes placed in the timeline', len(tl))
+    except tweepy.error.TweepError as exception:
+        logging.error('Twitter exception: %s', exception)
+        sys.exit(0)
     if k > 0:
         logging.info('%d entries with missing attributes.', k)
         
