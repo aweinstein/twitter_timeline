@@ -23,7 +23,7 @@ def auth():
     return api
 
 def get_timeline(api, limit=None):
-    '''Return a list of tuple with the content of the timeline'''
+    """Return a list of tuple with the content of the timeline."""
     tl = []
     k = 0
     if limit:
@@ -47,7 +47,7 @@ def get_timeline(api, limit=None):
         sys.exit(0)
     if k > 0:
         logging.info('%d entries with missing attributes.', k)
-        
+
     return tl
 
 # Move this to something like utils.py or db.py
@@ -60,7 +60,7 @@ def get_db_connection(file_name):
 def create_db(file_name):
     conn = get_db_connection(file_name)
     c = conn.cursor()
-    
+
     c.execute("SELECT name FROM sqlite_master WHERE "
               "type='table' AND name='timeline'")
     if c.fetchone():
@@ -73,7 +73,7 @@ def create_db(file_name):
     conn.commit()
     c.close()
     print 'Create database %s.' % file_name
-    
+
 def insert_timeline(tl, file_name):
     conn = get_db_connection(file_name)
     c = conn.cursor()
@@ -85,12 +85,12 @@ def insert_timeline(tl, file_name):
             k += 1
         except sqlite3.IntegrityError:
             pass
-        
+
     conn.commit()
     c.close()
 
     logging.info('%d register inserted into %s.', k, file_name)
-    
+
 if __name__ == '__main__':
 
     #db_name = './tweets.sqlite'

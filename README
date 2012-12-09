@@ -1,1 +1,5 @@
 Read the Twitter timeline and store the results in a sqlite database.
+
+Depends on tweepy:
+
+$ sudo pip install tweepy
