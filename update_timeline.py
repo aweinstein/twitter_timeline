@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import logging
 import sqlite3
 import sys
@@ -91,12 +92,23 @@ def insert_timeline(tl, file_name):
 
     logging.info('%d register inserted into %s.', k, file_name)
 
-if __name__ == '__main__':
-
-    #db_name = './tweets.sqlite'
-    #create_db(db_name)
+def get_data():
     api = auth()
     timeline = get_timeline(api)
     insert_timeline(timeline, db_name)
 
     logging.info('Finish updating the timeline')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Update Timeline')
+
+    parser.add_argument('--create_db', nargs='?', const=db_name,
+                        help='Create db an exit.')
+    args = parser.parse_args()
+
+
+    if args.create_db:
+        create_db(args.create_db)
+        sys.exit(0)
+
+    get_data()
